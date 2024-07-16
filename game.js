@@ -9,12 +9,13 @@ const newGameButton = document.querySelector('#new-game');
 const takeCardButton = document.querySelector('#take-card');
 const stopButton = document.querySelector('#stop');
 const pointsHTML = document.querySelectorAll('small');
+const playerCardContainer = document.querySelector('#player-card-container');
 
 let deck = [];
 const types = ['C', 'D', 'H', 'S'];
 const specials = ['A', 'J', 'Q', 'K'];
 let playerPoints = 0;
-let computerPoints = 10;
+let computerPoints = 0;
 
 const shuffle = (arr = []) => {
     return arr.sort(() => Math.random() - 0.5)
@@ -29,7 +30,7 @@ const createDeck = () => {
 
     for (const type of types) {
         for (const special of specials) {
-            deck.push(type + special);
+            deck.push(special + type);
         }
     }
 
@@ -49,14 +50,10 @@ const takeCard = () => {
 
 const getValueOfCard = (card) => {
     const value = card.substring(0, card.length - 1);
-    let points = 0;
 
-    if (isNaN(value)) {
-        console.log('No es un número.')
-        return points = (value === 'A') ? 11 : 10;
-    }
-
-    return points = +value;
+    return ( isNaN( value ) ) ? 
+        ( value === 'A' ) ? 11 : 10
+        : +value;
 }
 
 createDeck();
@@ -68,4 +65,17 @@ takeCardButton.addEventListener('click', () => {
     playerPoints = playerPoints + value;
     pointsHTML[0].innerText = playerPoints;
     pointsHTML[1].innerText = computerPoints;
+
+    const createImgElement = document.createElement('img');
+    createImgElement.src = `assets/${card}.png`;
+    createImgElement.classList.add('card-image')
+    playerCardContainer.append(createImgElement);
+
+    if (playerPoints > 21) {
+        alert('El jugador perdio la partida');
+        takeCardButton.disabled = true;
+    } else if (playerPoints === 21) {
+        alert('21, Genial!');
+        takeCardButton.disabled = true;
+    }
 });

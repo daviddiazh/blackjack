@@ -22,6 +22,6 @@ html, body {
     margin-left: -75px;
 }
 
-#computer-card, #player-card {
+#computer-card-container, #player-card-container {
     height: 220px;
 }
