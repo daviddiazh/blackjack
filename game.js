@@ -90,12 +90,21 @@ const computerTurn = (minPoints) => {
             newGameButton.disabled = false;
         } else if (minPoints === computerPoints) {
             alert('Nadie gana :/')
+            newGameButton.disabled = false;
+            stopButton.disabled = true;
+            takeCardButton.disabled = true;
         } else if (computerPoints > 21) {
             alert('El jugador gana')
+            newGameButton.disabled = false;
+            stopButton.disabled = true;
+            takeCardButton.disabled = true;
         } else if ((computerPoints > minPoints) && (minPoints < 21)) {
             newGameButton.disabled = false;
-        alert('El jugador gana')
-    }
+            alert('La computadora gana');
+            newGameButton.disabled = false;
+            stopButton.disabled = true;
+            takeCardButton.disabled = true;
+        }
     }, 200);
 }
 
